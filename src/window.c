@@ -32,7 +32,8 @@ static void click(Game *g, SDL_Event evt) {
   if (g->to_place) {
     for (int py = 0; py != g->to_place_height; py++)
       for (int px = 0; px != g->to_place_length; px++)
-        g->map[y + py][x + px] = g->to_place[py][px];
+        if (g->to_place[py][px])
+          g->map[y + py][x + px] = g->to_place[py][px];
     g->to_place = NULL;
   } else
     g->map[y][x] = !g->map[y][x];
@@ -61,11 +62,10 @@ static void set_pattern_rect(Game *g) {
   py = py / 9;
   for (int y = 0; y != g->to_place_height; y++) {
     for (int x = 0; x != g->to_place_length; x++) {
+      if (!g->to_place[y][x])
+        continue;
       SDL_Rect rect = {S_TILE * (px + x), S_TILE * (py + y), S_TILE, S_TILE};
-      if (g->to_place[y][x])
-        SDL_SetRenderDrawColor(g->renderer, 255, 0, 0, 0);
-      else
-        SDL_SetRenderDrawColor(g->renderer, 255, 255, 255, 0);
+      SDL_SetRenderDrawColor(g->renderer, 255, 0, 0, 0);
       SDL_RenderFillRect(g->renderer, &rect);
     }
   }
