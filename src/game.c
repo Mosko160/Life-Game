@@ -90,4 +90,7 @@ void rotate_pattern(Game *g) {
     free(g->to_place[y]);
   free(g->to_place);
   g->to_place = map;
+  int t = g->to_place_height;
+  g->to_place_height = g->to_place_length;
+  g->to_place_length = t;
 }
