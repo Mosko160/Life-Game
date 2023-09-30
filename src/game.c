@@ -40,6 +40,7 @@ Game *create_game(SDL_Renderer *renderer) {
   g->update = 1;
   g->map = create_map();
   g->speed = 10;
+  g->size = 5;
   return g;
 }
 

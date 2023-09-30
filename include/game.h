@@ -16,6 +16,7 @@ typedef struct {
   int **to_place;
   int to_place_height;
   int to_place_length;
+  int size;
 } Game;
 
 Game *create_game(SDL_Renderer *renderer);

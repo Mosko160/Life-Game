@@ -27,8 +27,8 @@ void render_map(Game *g) {
 }
 
 static void click(Game *g, SDL_Event evt) {
-  int x = evt.button.x / 9;
-  int y = evt.button.y / 9;
+  int x = evt.button.x / g->size;
+  int y = evt.button.y / g->size;
   if (g->to_place) {
     for (int py = 0; py != g->to_place_height; py++)
       for (int px = 0; px != g->to_place_length; px++)
@@ -61,8 +61,8 @@ static void event_listener(Game *g, Menu *m) {
 static void set_pattern_rect(Game *g) {
   int px, py;
   SDL_GetMouseState(&px, &py);
-  px = px / 9;
-  py = py / 9;
+  px = px / g->size;
+  py = py / g->size;
   for (int y = 0; y != g->to_place_height; y++) {
     for (int x = 0; x != g->to_place_length; x++) {
       if (!g->to_place[y][x])

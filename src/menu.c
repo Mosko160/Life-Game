@@ -139,6 +139,10 @@ static void speed_key_pressed(Game *g, Menu *m, int key) {
 
 static void choose_pattern(Game *g, Menu *m) {
   Pattern *pat = m->storage[m->category]->pat[m->index_pattern];
+  if (g->to_place)
+    for (int y = 0; y != g->to_place_height; y++)
+      free(g->to_place[y]);
+  free(g->to_place);
   g->to_place = calloc(sizeof(int *), pat->height);
   for (int y = 0; y != pat->height; y++) {
     g->to_place[y] = calloc(sizeof(int), pat->length);
@@ -192,6 +196,11 @@ static void patterns_key_pressed(Game *g, Menu *m, int key) {
       box(m->patternWin, 0, 0);
       wrefresh(m->categoryWin);
       wrefresh(m->patternWin);
+      if (g->to_place)
+        for (int y = 0; y != g->to_place_height; y++)
+          free(g->to_place[y]);
+      free(g->to_place);
+      g->to_place = NULL;
     } else {
       m->status = HOME;
       wclear(m->patternsWin);
