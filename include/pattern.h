@@ -6,7 +6,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-enum Type { Block = 0, Oscillator, Glider };
+enum Type { Block = 0, Oscillator, Glider, Gun };
 
 typedef struct {
   char *name;

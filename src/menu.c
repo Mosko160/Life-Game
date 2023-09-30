@@ -57,6 +57,7 @@ static void display_category_name(Menu *m) {
   mvwprintw(m->categoryWin, 2, 5, "Block");
   mvwprintw(m->categoryWin, 3, 5, "Oscillator");
   mvwprintw(m->categoryWin, 4, 5, "Glider");
+  mvwprintw(m->categoryWin, 5, 5, "Gun");
   mvwprintw(m->categoryWin, 2 + m->index_categ, 2, "->");
   box(m->categoryWin, 0, 0);
   if (m->focus == CATEGORY)
@@ -81,8 +82,8 @@ Menu *init_win(Storage **storage) {
   m->menuWin = subwin(m->mainWin, 5, 120, 50, 40);
   m->patternsWin = subwin(m->mainWin, 46, 201, 2, 5);
   m->categoryWin = subwin(m->patternsWin, 46, 20, 2, 5);
-  m->patternWin = subwin(m->patternsWin, 46, 20, 2, 24);
-  m->patternInfoWin = subwin(m->patternsWin, 46, 163, 2, 43);
+  m->patternWin = subwin(m->patternsWin, 46, 30, 2, 24);
+  m->patternInfoWin = subwin(m->patternsWin, 46, 153, 2, 53);
   m->storage = storage;
   refresh();
   display_home(m);
@@ -143,7 +144,6 @@ static void choose_pattern(Game *g, Menu *m) {
     g->to_place[y] = calloc(sizeof(int), pat->length);
     memcpy(g->to_place[y], pat->map[y], sizeof(int) * pat->length);
   }
-  // g->to_place = pat->map;
   g->to_place_height = pat->height;
   g->to_place_length = pat->length;
 }

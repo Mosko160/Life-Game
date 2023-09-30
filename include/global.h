@@ -6,4 +6,4 @@
 #define FPS 120
 #define FRAME_INTERVAL 1000 / FPS
 
-#define NB_PATTERNS_TYPE 3
+#define NB_PATTERNS_TYPE 4
