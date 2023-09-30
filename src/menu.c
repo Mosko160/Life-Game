@@ -58,6 +58,7 @@ static void display_category_name(Menu *m) {
   mvwprintw(m->categoryWin, 3, 5, "Oscillator");
   mvwprintw(m->categoryWin, 4, 5, "Glider");
   mvwprintw(m->categoryWin, 5, 5, "Gun");
+  mvwprintw(m->categoryWin, 6, 5, "Spaceship");
   mvwprintw(m->categoryWin, 2 + m->index_categ, 2, "->");
   box(m->categoryWin, 0, 0);
   if (m->focus == CATEGORY)
@@ -127,7 +128,8 @@ static void speed_key_pressed(Game *g, Menu *m, int key) {
     display_speed(m, g);
     break;
   case SDLK_RIGHT:
-    g->speed++;
+    if (g->speed < FPS)
+      g->speed++;
     display_speed(m, g);
     break;
   case SDLK_ESCAPE:
