@@ -34,6 +34,9 @@ static void click(Game *g, SDL_Event evt) {
       for (int px = 0; px != g->to_place_length; px++)
         if (g->to_place[py][px])
           g->map[y + py][x + px] = g->to_place[py][px];
+    for (int y = 0; y != g->to_place_height; y++)
+      free(g->to_place[y]);
+    free(g->to_place);
     g->to_place = NULL;
   } else
     g->map[y][x] = !g->map[y][x];

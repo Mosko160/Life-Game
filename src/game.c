@@ -76,3 +76,18 @@ void random_map(Game *g) {
     for (int x = 0; x != N_TILE; x++)
       g->map[y][x] = rand() % 2;
 }
+
+void rotate_pattern(Game *g) {
+  if (!g->to_place)
+    return;
+  int **map = calloc(sizeof(int *), g->to_place_length);
+  for (int y = 0; y != g->to_place_length; y++)
+    map[y] = calloc(sizeof(int), g->to_place_height);
+  for (int y = 0; y != g->to_place_height; y++)
+    for (int x = 0; x != g->to_place_length; x++)
+      map[x][g->to_place_height - y - 1] = g->to_place[y][x];
+  for (int y = 0; y != g->to_place_height; y++)
+    free(g->to_place[y]);
+  free(g->to_place);
+  g->to_place = map;
+}

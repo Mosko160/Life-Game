@@ -23,3 +23,4 @@ void update_game(Game *g);
 void free_game(Game *g);
 void reset_map(Game *g);
 void random_map(Game *g);
+void rotate_pattern(Game *g);

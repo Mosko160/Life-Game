@@ -69,6 +69,10 @@ static void display_patterns_win(Menu *m) {
   box(m->patternsWin, 0, 0);
   wrefresh(m->patternsWin);
   display_category_name(m);
+  wclear(m->menuWin);
+  box(m->menuWin, 0, 0);
+  mvwprintw(m->menuWin, 2, 56, "r. Rotate");
+  wrefresh(m->menuWin);
 }
 
 Menu *init_win(Storage **storage) {
@@ -134,7 +138,12 @@ static void speed_key_pressed(Game *g, Menu *m, int key) {
 
 static void choose_pattern(Game *g, Menu *m) {
   Pattern *pat = m->storage[m->category]->pat[m->index_pattern];
-  g->to_place = pat->map;
+  g->to_place = calloc(sizeof(int *), pat->height);
+  for (int y = 0; y != pat->height; y++) {
+    g->to_place[y] = calloc(sizeof(int), pat->length);
+    memcpy(g->to_place[y], pat->map[y], sizeof(int) * pat->length);
+  }
+  // g->to_place = pat->map;
   g->to_place_height = pat->height;
   g->to_place_length = pat->length;
 }
@@ -177,7 +186,6 @@ static void patterns_key_pressed(Game *g, Menu *m, int key) {
     break;
   case SDLK_ESCAPE:
     if (m->focus == PATTERN) {
-
       m->index_pattern = 0;
       m->focus = CATEGORY;
       mvwprintw(m->categoryWin, 0, 6, " Select ");
@@ -188,12 +196,14 @@ static void patterns_key_pressed(Game *g, Menu *m, int key) {
       m->status = HOME;
       wclear(m->patternsWin);
       wrefresh(m->patternsWin);
+      display_home(m);
     }
     break;
+  case SDLK_r:
+    if (m->focus == PATTERN)
+      rotate_pattern(g);
+    break;
   }
-  if (g || m || key)
-    return;
-  return;
 }
 
 void key_pressed(Game *g, Menu *m, int key) {
