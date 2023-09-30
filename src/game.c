@@ -63,6 +63,10 @@ void update_game(Game *g) {
 
 void free_game(Game *g) {
   free_map(g->map);
+  if (g->to_place)
+    for (int y = 0; y != g->to_place_height; y++)
+      free(g->to_place[y]);
+  free(g->to_place);
   free(g);
 }
 
