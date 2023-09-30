@@ -23,7 +23,6 @@ static void display_speed(Menu *m, Game *g) {
 
 static void display_pattern_info(Menu *m) {
   wclear(m->patternInfoWin);
-  box(m->patternInfoWin, 0, 0);
   if (!m->storage[m->category]->length)
     return;
   Pattern *pat = m->storage[m->category]->pat[m->index_pattern];
@@ -33,6 +32,7 @@ static void display_pattern_info(Menu *m) {
   for (int y = 0; y != pat->height; y++)
     for (int x = 0; x != pat->length; x++)
       mvwprintw(m->patternInfoWin, y + 5, x + 3, pat->map[y][x] ? "#" : " ");
+  box(m->patternInfoWin, 0, 0);
   wrefresh(m->patternInfoWin);
 }
 
@@ -59,6 +59,8 @@ static void display_category_name(Menu *m) {
   mvwprintw(m->categoryWin, 4, 5, "Glider");
   mvwprintw(m->categoryWin, 5, 5, "Gun");
   mvwprintw(m->categoryWin, 6, 5, "Spaceship");
+  mvwprintw(m->categoryWin, 7, 5, "Eater");
+  mvwprintw(m->categoryWin, 8, 5, "Spacefiller");
   mvwprintw(m->categoryWin, 2 + m->index_categ, 2, "->");
   box(m->categoryWin, 0, 0);
   if (m->focus == CATEGORY)

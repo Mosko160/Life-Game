@@ -11,6 +11,10 @@ static enum Type get_type(const char *s) {
     return Gun;
   else if (!strcmp(s, "Spaceship\n"))
     return Spaceship;
+  else if (!strcmp(s, "Eater\n"))
+    return Eater;
+  else if (!strcmp(s, "Spacefiller\n"))
+    return Spacefiller;
   return Oscillator;
 }
 
