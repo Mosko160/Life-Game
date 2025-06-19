@@ -1,11 +1,11 @@
 #include "game.h"
 
 static Map create_map() {
-  Map map = calloc(sizeof(int **), N_TILE);
+  Map map = calloc(N_TILE, sizeof(int *));
   if (!map)
     exit(1);
   for (int y = 0; y != N_TILE; y++) {
-    map[y] = calloc(sizeof(int) * N_TILE, N_TILE);
+    map[y] = calloc(N_TILE, sizeof(int));
     if (!map[y])
       exit(1);
   }
@@ -32,7 +32,7 @@ static int get_nei(Map map, int y, int x) {
 }
 
 Game *create_game(SDL_Renderer *renderer) {
-  Game *g = calloc(sizeof(Game), 1);
+  Game *g = calloc(1, sizeof(Game));
   if (!g)
     exit(1);
   g->renderer = renderer;
@@ -85,9 +85,9 @@ void random_map(Game *g) {
 void rotate_pattern(Game *g) {
   if (!g->to_place)
     return;
-  int **map = calloc(sizeof(int *), g->to_place_length);
+  int **map = calloc(g->to_place_length, sizeof(int *));
   for (int y = 0; y != g->to_place_length; y++)
-    map[y] = calloc(sizeof(int), g->to_place_height);
+    map[y] = calloc(g->to_place_height, sizeof(int));
   for (int y = 0; y != g->to_place_height; y++)
     for (int x = 0; x != g->to_place_length; x++)
       map[x][g->to_place_height - y - 1] = g->to_place[y][x];
