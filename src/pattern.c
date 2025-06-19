@@ -21,9 +21,9 @@ static enum Type get_type(const char *s) {
 static void get_map(Pattern *pat, FILE *f) {
   char *buff = NULL;
   size_t ms = 0;
-  pat->map = calloc(sizeof(int *), pat->height);
+  pat->map = calloc(pat->height, sizeof(int *));
   for (int y = 0; y != pat->height; y++) {
-    pat->map[y] = calloc(sizeof(int), pat->length);
+    pat->map[y] = calloc(pat->length, sizeof(int));
     getline(&buff, &ms, f);
     for (int x = 0; x != pat->length; x++)
       pat->map[y][x] = buff[x] == '1';
@@ -54,7 +54,7 @@ static Pattern *parse_file(FILE *f) {
 }
 
 static Pattern *get_pattern(const char *fname) {
-  char *f_name = calloc(sizeof(char), (strlen(fname) + 12));
+  char *f_name = calloc(strlen(fname) + 12, sizeof(char));
   strcat(f_name, "patterns/");
   strcat(f_name, fname);
   FILE *f = fopen(f_name, "r");
@@ -63,9 +63,9 @@ static Pattern *get_pattern(const char *fname) {
 }
 
 Storage **load_patterns() {
-  Storage **storage = calloc(sizeof(Storage *), NB_PATTERNS_TYPE);
+  Storage **storage = calloc(NB_PATTERNS_TYPE, sizeof(Storage *));
   for (int i = 0; i != NB_PATTERNS_TYPE; i++) {
-    storage[i] = calloc(sizeof(Storage), 1);
+    storage[i] = calloc(1, sizeof(Storage));
     storage[i]->type = i;
   }
   DIR *d;

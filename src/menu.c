@@ -80,7 +80,7 @@ static void display_patterns_win(Menu *m) {
 }
 
 Menu *init_win(Storage **storage) {
-  Menu *m = calloc(sizeof(Menu), 1);
+  Menu *m = calloc(1, sizeof(Menu));
   m->mainWin = initscr();
   m->menuWin = subwin(m->mainWin, 5, 120, 50, 40);
   m->patternsWin = subwin(m->mainWin, 46, 201, 2, 5);
@@ -147,9 +147,9 @@ static void choose_pattern(Game *g, Menu *m) {
     for (int y = 0; y != g->to_place_height; y++)
       free(g->to_place[y]);
   free(g->to_place);
-  g->to_place = calloc(sizeof(int *), pat->height);
+  g->to_place = calloc(pat->height, sizeof(int *));
   for (int y = 0; y != pat->height; y++) {
-    g->to_place[y] = calloc(sizeof(int), pat->length);
+    g->to_place[y] = calloc(pat->length, sizeof(int));
     memcpy(g->to_place[y], pat->map[y], sizeof(int) * pat->length);
   }
   g->to_place_height = pat->height;
